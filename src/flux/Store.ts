@@ -1,11 +1,22 @@
 import { AppDispatcher, Action } from './Dispatcher';
 
-export type State = {};
+export type State = {
+    plant: Plant[]
+};
 
 type Listener = (state: State) => void;
 
+export type Plant = {
+name:'string';
+cientificName:'string';
+image:'string';
+}
+
+
 class Store {
-    private _myState: State = {}
+    private _myState: State = {
+        plant: []
+    }
 
     private _listeners: Listener[] = [];
 
@@ -13,8 +24,16 @@ class Store {
         AppDispatcher.register(this._handleActions.bind(this));
     }
 
+    subscribe (){
+        AppDispatcher.register(this._handleActions.bind(this));
+    }
+
     getState() {
-        return {};
+        return this._myState;
+    }
+
+    load() {
+        return{};
     }
 
     _handleActions(action: Action): void {
